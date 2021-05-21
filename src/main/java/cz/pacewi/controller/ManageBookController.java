@@ -39,6 +39,7 @@ public class ManageBookController {
             return "/book/add";
         }
         bookService.addBook(book);
-        return "redirect:/book/all";
+        return "redirect:/admin/books/all";
     }
+
 }

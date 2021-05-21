@@ -7,30 +7,30 @@
 </head>
 <body>
 
-<form action="/admin/books/add" method="post" modelAtribute="book">
+<form:form method="post" modelAttribute="book">
     <form:hidden path="id"/>
     <label>ISBN:</label>
     <form:input path="isbn"/>
     <form:errors path="isbn"/>
     <br>
-    <label>ISBN:</label>
+    <label>Title:</label>
     <form:input path="title"/>
     <form:errors path="title"/>
     <br>
-    <label>ISBN:</label>
+    <label>Author:</label>
     <form:input path="author"/>
     <form:errors path="author"/>
     <br>
-    <label>ISBN:</label>
+    <label>Publisher:</label>
     <form:input path="publisher"/>
     <form:errors path="publisher"/>
     <br>
-    <label>ISBN:</label>
+    <label>Type:</label>
     <form:input path="type"/>
     <form:errors path="type"/>
     <br>
     <input type="submit" value="Save">
-</form>
+</form:form>
 
 </body>
 </html>
