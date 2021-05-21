@@ -36,18 +36,20 @@ public class MemoryBookService implements BookService {
         bookList.add(new Book(3L, "9780130819338", "Java	2.	Podstawy", "Cay	Horstmann,	Gary	Cornell", "Helion", "programming"));
     }
 
+    @Override
     public List<Book> allBooksList() {
         return bookList;
     }
+    @Override
     public void addBook(Book book) {
         book.setId(nextId++);
         bookList.add(book);
     }
-    public Book bookById(Long id) {
-        return bookList.stream().filter(book -> book.getId() == id).findFirst().orElse(null);
-    }
-    public void removeBook(Book book) {
-        bookList.remove(book);
+    @Override
+    public void removeBook(Long id) {
+        if(getBook(id).isPresent()) {
+            bookList.remove(this.getBook(id).get());
+        }
     }
     @Override
     public Optional<Book> getBook(Long id) {

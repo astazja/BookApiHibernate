@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -54,6 +56,16 @@ public class ManageBookController {
         }
         bookService.addBook(book);
         return "redirect:/admin/books/all";
+    }
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable Long id) {
+         bookService.removeBook(id);
+        return "redirect:/admin/books/all";
+    }
+    @GetMapping("/show/{id}")
+    public String showBook(@PathVariable Long id, Model model) {
+        model.addAttribute("book", bookService.getBook(id).orElseThrow(EntityNotFoundException::new));
+        return "/book/details";
     }
 
 }

@@ -25,11 +25,6 @@ public class JpaBookService implements BookService {
     }
 
     @Override
-    public Book bookById(Long id) {
-        return null;
-    }
-
-    @Override
     public Optional<Book> getBook(Long id) {
         return bookRepository.findById(id);
     }
@@ -40,8 +35,8 @@ public class JpaBookService implements BookService {
     }
 
     @Override
-    public void removeBook(Book book) {
-        bookRepository.delete(book);
+    public void removeBook(Long id) {
+        bookRepository.deleteById(id);
     }
 
     @Override

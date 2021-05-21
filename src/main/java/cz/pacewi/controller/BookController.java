@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import cz.pacewi.model.Book;
 import cz.pacewi.model.BookService;
 import cz.pacewi.service.MemoryBookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -24,24 +26,27 @@ public class BookController {
     public List<Book> booksList() {
         return bookService.allBooksList();
     }
+
     @PostMapping("")
-    @JsonDeserialize(as = BookController.class)
     public void addBook(@RequestBody Book book) {
         bookService.addBook(book);
     }
+
     @GetMapping("/{id}")
-    public Book bookById(@PathVariable("id") long id) {
-        return bookService.allBooksList().stream().filter(book -> book.getId() == id).findFirst().orElse(null);
+    public Book bookById(@PathVariable Long id) {
+        return this.bookService.getBook(id).orElseThrow(()->{throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        });
     }
-    @PutMapping("/{id}")
-    @JsonDeserialize(as = BookController.class)
-    public void putBook(@PathVariable long id, @RequestBody Book book) {
-        Book bookToChange = bookService.bookById(id);
-        bookService.removeBook(bookToChange);
-        bookService.addBook(book);
+
+    @PutMapping("")
+    @ResponseBody
+    public void putBook(@RequestBody Book book) {
+        bookService.updateBook(book);
+
     }
+
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable long id, @RequestBody Book book) {
-        bookService.removeBook(bookService.bookById(id));
+    public void deleteBook(@PathVariable long id) {
+        bookService.removeBook(id);
     }
 }

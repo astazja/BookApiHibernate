@@ -5,9 +5,10 @@ import java.util.Optional;
 
 public interface BookService {
     public List<Book> allBooksList();
-    public  Book bookById(Long id);
-    public void addBook(Book book);
-    public void removeBook(Book book);
     public Optional<Book> getBook(Long id);
+    public void addBook(Book book);
     public void updateBook(Book book);
+    public void removeBook(Long id);
+
+
 }
