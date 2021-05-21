@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,6 +38,19 @@ public class ManageBookController {
     public String saveBook(@Valid Book book, BindingResult result) {
         if(result.hasErrors()) {
             return "/book/add";
+        }
+        bookService.addBook(book);
+        return "redirect:/admin/books/all";
+    }
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable Long id, Model model) {
+        model.addAttribute("book", bookService.getBook(id));
+        return "/book/edit";
+    }
+    @PostMapping("/update")
+    public String updateBook(@Valid Book book, BindingResult result) {
+        if(result.hasErrors()) {
+            return "/book/edit";
         }
         bookService.addBook(book);
         return "redirect:/admin/books/all";
