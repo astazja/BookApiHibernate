@@ -1,4 +1,4 @@
-package cz.pacewi.app;
+package cz.pacewi;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
