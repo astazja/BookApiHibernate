@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemoryBookService implements BookService {
@@ -42,10 +43,21 @@ public class MemoryBookService implements BookService {
         book.setId(nextId++);
         bookList.add(book);
     }
-    public Book bookById(long id) {
+    public Book bookById(Long id) {
         return bookList.stream().filter(book -> book.getId() == id).findFirst().orElse(null);
     }
     public void removeBook(Book book) {
         bookList.remove(book);
+    }
+    @Override
+    public Optional<Book> getBook(Long id) {
+        return bookList.stream().filter(item -> item.getId().equals(id)).findFirst();
+    }
+    @Override
+    public void updateBook(Book book) {
+        if(this.getBook(book.getId()).isPresent()) {
+            int indexOf = bookList.indexOf(this.getBook(book.getId()).get());
+            bookList.set(indexOf, book);
+        }
     }
 }

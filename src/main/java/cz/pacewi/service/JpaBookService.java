@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Primary
@@ -24,17 +25,27 @@ public class JpaBookService implements BookService {
     }
 
     @Override
-    public void addBook(Book book) {
-
-    }
-
-    @Override
-    public Book bookById(long id) {
+    public Book bookById(Long id) {
         return null;
     }
 
     @Override
-    public void removeBook(Book book) {
+    public Optional<Book> getBook(Long id) {
+        return bookRepository.findById(id);
+    }
 
+    @Override
+    public void addBook(Book book) {
+        bookRepository.save(book);
+    }
+
+    @Override
+    public void removeBook(Book book) {
+        bookRepository.delete(book);
+    }
+
+    @Override
+    public void updateBook(Book book) {
+        bookRepository.save(book);
     }
 }

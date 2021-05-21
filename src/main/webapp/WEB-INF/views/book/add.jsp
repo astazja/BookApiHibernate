@@ -1,30 +1,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Book List</title>
+    <title>Book add</title>
 </head>
 <body>
 
-<table border="1">
-    <thead>
-        <th>Isbn</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Publisher</th>
-        <th>Type</th>
-    </thead>
-    <tbody>
-    <c:forEach items="${books}" var="book">
-        <tr>
-            <td><c:out value="${book.isbn}"/></td>
-            <td><c:out value="${book.title}"/></td>
-            <td><c:out value="${book.author}"/></td>
-            <td><c:out value="${book.publisher}"/></td>
-            <td><c:out value="${book.type}"/></td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+<form action="/admin/books/add" method="post" modelAtribute="book">
+    <form:hidden path="id"/>
+    <label>ISBN:</label>
+    <form:input path="isbn"/>
+    <form:errors path="isbn"/>
+    <br>
+    <label>ISBN:</label>
+    <form:input path="title"/>
+    <form:errors path="title"/>
+    <br>
+    <label>ISBN:</label>
+    <form:input path="author"/>
+    <form:errors path="author"/>
+    <br>
+    <label>ISBN:</label>
+    <form:input path="publisher"/>
+    <form:errors path="publisher"/>
+    <br>
+    <label>ISBN:</label>
+    <form:input path="type"/>
+    <form:errors path="type"/>
+    <br>
+    <input type="submit" value="Save">
+</form>
+
 </body>
 </html>
